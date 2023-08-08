@@ -1,6 +1,7 @@
 package com.mlkitpoc.main
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mlkitpoc.R
+import com.mlkitpoc.list.ListActivity
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId", "WrongViewCast")
@@ -49,9 +51,9 @@ class MainActivity : AppCompatActivity() {
         // goes to results (list activity)
         val doneButton = findViewById<Button>(R.id.done_button)
         doneButton.setOnClickListener {
-//            val launchList = Intent(this, ListActivity::class.java)
-//            launchList.putStringArrayListExtra("itemList", list)
-//            startActivity(launchList)
+            val launchList = Intent(this, ListActivity::class.java)
+            launchList.putStringArrayListExtra("itemList", list)
+            startActivity(launchList)
         }
     }
 }
