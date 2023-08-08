@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MLKitPOC</string>
+
+    <string name="list_title">List</string>
+    <string name="details_title">Details</string>
+
 </resources>

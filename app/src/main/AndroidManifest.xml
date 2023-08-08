@@ -21,7 +21,16 @@
         android:theme="@style/Theme.MLKitPOC"
         tools:targetApi="31">
         <activity
-            android:name=".main.MainActivity"
+            android:name=".integration.IntegrationListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".integration.IntegrationImageUploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".integration.IntegrationMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".launch.MainLaunchActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +38,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--
+        Optional: Add it to automatically download ML model to device after
+         your app is installed.
+        -->
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr,ica" />
+
+        <activity
+            android:name=".main.MainActivity"
+            android:exported="false" />
         <activity
             android:name=".list.ListActivity"
             android:exported="false" />
