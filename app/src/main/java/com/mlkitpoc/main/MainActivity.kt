@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mlkitpoc.R
+import com.mlkitpoc.image.ImageUploadActivity
 import com.mlkitpoc.list.ListActivity
 
 class MainActivity : AppCompatActivity() {
@@ -44,8 +45,8 @@ class MainActivity : AppCompatActivity() {
         // goes to scan activity
         val scanButton = findViewById<Button>(R.id.scan_button)
         scanButton.setOnClickListener {
-//            val launchScan = Intent(this, ScanActivity::class.java)
-//            startActivity(launchScan)
+            val launchScan = Intent(this, ImageUploadActivity::class.java)
+            startActivity(launchScan)
         }
 
         // goes to results (list activity)

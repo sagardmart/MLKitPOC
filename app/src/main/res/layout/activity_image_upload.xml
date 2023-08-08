@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/activity_image_upload.xml -->
+<!--<LinearLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical"-->
+<!--    android:gravity="center">-->
+
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Scan your list" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/cameraButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:clickable="true"-->
+<!--        android:contentDescription="Camera Button"-->
+<!--        android:focusable="true"-->
+<!--        android:onClick="openCameraForListScan"-->
+<!--        android:src="@drawable/ic_camera" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/galleryButton"-->
+<!--        android:layout_width="266dp"-->
+<!--        android:layout_height="359dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:clickable="true"-->
+<!--        android:contentDescription="Gallery Button"-->
+<!--        android:focusable="true"-->
+<!--        android:onClick="openGallery"-->
+<!--        android:src="@drawable/ic_gallery" />-->
+
+<!--</LinearLayout>-->
+
+<!-- res/layout/activity_image_upload.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_foreground" />
+
+    <Button
+        android:id="@+id/galleryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Image from Gallery"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/cameraButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan Your List"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
