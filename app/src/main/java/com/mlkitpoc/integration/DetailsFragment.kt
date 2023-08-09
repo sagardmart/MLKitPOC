@@ -1,15 +1,20 @@
 package com.mlkitpoc.integration
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import com.mlkitpoc.databinding.FragmentDetailsBinding
+import com.mlkitpoc.integration.retrofit.ApiService
 import com.mlkitpoc.integration.viewmodel.ContentViewModel
-import kotlinx.coroutines.launch
+import com.mlkitpoc.list.model.Product
+import com.mlkitpoc.list.model.Record
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DetailsFragment : Fragment() {
 
@@ -25,7 +30,23 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.text.observe(viewLifecycleOwner) {
             binding?.contentLabel?.text = it
+
+            fetchProducts(it)
         }
+    }
+
+    private fun fetchProducts(searchTerm: String) {
+        val call = ApiService.getApiClient().getListOfProducts(searchTerm)
+        call?.enqueue(object : Callback<Record?> {
+            override fun onResponse(call: Call<Record?>, response: Response<Record?>) {
+                Log.d("TAG", "onResponse: ${response.body()?.totalRecords}")
+            }
+
+            override fun onFailure(call: Call<Record?>, t: Throwable) {
+                Log.e("TAG", "onFailure: ${t.message}", t)
+            }
+
+        })
     }
 
     override fun onDestroyView() {
