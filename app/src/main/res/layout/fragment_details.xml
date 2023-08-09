@@ -5,20 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/content_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/recyclerviewsearch"
+
+        android:layout_width="404dp"
+        android:layout_height="650dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_label"
-        tools:text="Main Content" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/searchcard_f" />
 
     <TextView
         android:id="@+id/main_label"
