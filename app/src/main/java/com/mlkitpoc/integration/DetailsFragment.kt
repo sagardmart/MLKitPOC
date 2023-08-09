@@ -39,7 +39,9 @@ class DetailsFragment : Fragment() {
         val call = ApiService.getApiClient().getListOfProducts(searchTerm)
         call?.enqueue(object : Callback<Record?> {
             override fun onResponse(call: Call<Record?>, response: Response<Record?>) {
-                Log.d("TAG", "onResponse: ${response.body()?.totalRecords}")
+                if (response.isSuccessful) {
+                    Log.d("TAG", "onResponse: ${response.body()?.totalRecords}")
+                }
             }
 
             override fun onFailure(call: Call<Record?>, t: Throwable) {
