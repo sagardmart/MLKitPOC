@@ -42,6 +42,13 @@ class MainActivity : AppCompatActivity() {
             builder.show()
         }
 
+        //clears list
+        val clearList = findViewById<Button>(R.id.clear_button)
+        clearList.setOnClickListener {
+            list.clear()
+            groceryList.adapter = MainAdapter(list)
+        }
+
         // goes to scan activity
         val scanButton = findViewById<Button>(R.id.scan_button)
         scanButton.setOnClickListener {
