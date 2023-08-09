@@ -54,6 +54,11 @@ class IntegrationMainActivity : AppCompatActivity() {
             builder.show()
         }
 
+        binding.clearButton.setOnClickListener{
+            list.clear()
+            adapter?.notifyDataSetChanged()
+        }
+
         binding.scanButton.setOnClickListener {
             val intent = Intent(this@IntegrationMainActivity, IntegrationImageUploadActivity::class.java)
             listResultLauncher.launch(intent)
