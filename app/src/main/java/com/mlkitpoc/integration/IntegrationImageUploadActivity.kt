@@ -1,7 +1,9 @@
 package com.mlkitpoc.integration
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +14,9 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabel
 import com.google.mlkit.vision.label.ImageLabeler
@@ -22,6 +27,7 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.mlkitpoc.R
 import com.mlkitpoc.databinding.ActivityIntegrationImageUploadBinding
 import com.mlkitpoc.image.ImageDisplayActivity
+import com.mlkitpoc.image.ImageUploadActivity
 import com.mlkitpoc.integration.ml.IProcessor
 import com.mlkitpoc.integration.ml.ImageLabelerProcessor
 import com.mlkitpoc.integration.ml.TextRecognitionProcessor
@@ -41,20 +47,20 @@ class IntegrationImageUploadActivity : AppCompatActivity() {
 
 
     private val takePicture =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    val data: Intent? = result.data
-                    val imageBitmap = data?.extras?.get("data") as Bitmap?
-                    startImageDisplayActivity(imageBitmap, null)
-                }
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                val imageBitmap = data?.extras?.get("data") as Bitmap?
+                startImageDisplayActivity(imageBitmap, null)
             }
+        }
 
     private val getContent =
-            registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri: Uri? ->
-                if (imageUri != null) {
-                    startImageDisplayActivity(null, imageUri)
-                }
+        registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri: Uri? ->
+            if (imageUri != null) {
+                startImageDisplayActivity(null, imageUri)
             }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,28 +72,76 @@ class IntegrationImageUploadActivity : AppCompatActivity() {
         }
 
         binding.cameraButton.setOnClickListener {
-            openCameraForListScan()
+            if (hasCameraPermission()) {
+                openCameraForListScan()
+            } else {
+                requestCameraPermission()
+            }
         }
 
         binding.textScan.setOnClickListener {
-            val processor = TextRecognitionProcessor(TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS))
+            val processor =
+                TextRecognitionProcessor(TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS))
             if (imageBitmap != null) {
                 imageBitmap = processor.getResizedBitmap(imageBitmap, imageMaxWidth, imageMaxHeight)
             } else if (imageUri != null) {
-                imageBitmap = processor.getResizedBitmap(imageUri, imageMaxWidth, imageMaxHeight, contentResolver)
+                imageBitmap = processor.getResizedBitmap(
+                    imageUri,
+                    imageMaxWidth,
+                    imageMaxHeight,
+                    contentResolver
+                )
             }
             processBitmapImage(processor)
         }
 
         binding.imgLabelScan.setOnClickListener {
-            val processor = ImageLabelerProcessor(ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS))
+            val processor =
+                ImageLabelerProcessor(ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS))
             if (imageBitmap != null) {
                 imageBitmap = processor.getResizedBitmap(imageBitmap, imageMaxWidth, imageMaxHeight)
             } else if (imageUri != null) {
-                imageBitmap = processor.getResizedBitmap(imageUri, imageMaxWidth, imageMaxHeight, contentResolver)
+                imageBitmap = processor.getResizedBitmap(
+                    imageUri,
+                    imageMaxWidth,
+                    imageMaxHeight,
+                    contentResolver
+                )
             }
             processBitmapImage(processor)
         }
+    }
+
+    private fun requestCameraPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+
+            val snackbar = Snackbar.make(
+                findViewById(R.id.rootLayout),
+                "Camera permission is required to take pictures",
+                Snackbar.LENGTH_INDEFINITE
+            )
+            snackbar.setAction("Grant") {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.CAMERA),
+                    ImageUploadActivity.CAMERA_PERMISSION_REQUEST_CODE
+                )
+            }
+            snackbar.show()
+        } else {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.CAMERA),
+                ImageUploadActivity.CAMERA_PERMISSION_REQUEST_CODE
+            )
+        }
+
+    }
+
+    private fun hasCameraPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun processBitmapImage(processor: IProcessor?) {
@@ -102,7 +156,11 @@ class IntegrationImageUploadActivity : AppCompatActivity() {
                     setResult(Activity.RESULT_OK, intent)
                     finish()
                 }
-                Toast.makeText(this@IntegrationImageUploadActivity, "${it.isSuccess} ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@IntegrationImageUploadActivity,
+                    "${it.isSuccess} ${it.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -136,18 +194,28 @@ class IntegrationImageUploadActivity : AppCompatActivity() {
             binding.mlBtnLayout.visibility = View.GONE
         }
 
-        binding.root.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        binding.root.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 binding.root.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 imageMaxWidth = binding.root.width
                 imageMaxHeight = binding.root.height - binding.imageView.height
             }
         })
-
-//        val intent = Intent(this, ImageDisplayActivity::class.java).apply {
-//            putExtra(ImageDisplayActivity.EXTRA_IMAGE_BITMAP, imageBitmap)
-//            putExtra(ImageDisplayActivity.EXTRA_IMAGE_URI, imageUri)
-//        }
-//        startActivity(intent)
     }
+
+    // Handle permission request result
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == ImageUploadActivity.CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCameraForListScan()
+            }
+        }
+    }
+
 }
