@@ -30,9 +30,6 @@
             android:exported="false" />
         <activity
             android:name=".integration.IntegrationMainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".launch.MainLaunchActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
