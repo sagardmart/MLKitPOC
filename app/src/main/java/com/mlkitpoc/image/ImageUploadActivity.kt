@@ -19,9 +19,9 @@ import com.mlkitpoc.R;
 class ImageUploadActivity : AppCompatActivity() {
 
     companion object {
-        private const val REQUEST_IMAGE_PICK = 1
-        private const val REQUEST_CAMERA_CAPTURE = 2
-        private const val CAMERA_PERMISSION_REQUEST_CODE = 3
+        public const val REQUEST_IMAGE_PICK = 1
+        public const val REQUEST_CAMERA_CAPTURE = 2
+        public const val CAMERA_PERMISSION_REQUEST_CODE = 3
         private var denied = false
     }
 
