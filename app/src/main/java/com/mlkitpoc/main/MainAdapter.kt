@@ -33,18 +33,17 @@ class MainAdapter(val userList: ArrayList<String>) : RecyclerView.Adapter<MainAd
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // displays item
-        holder?.itemName?.setText(userList[position])
+        holder.itemName?.setText(userList[position])
 
         // deletes item
-        holder?.deleteButton?.setOnClickListener {
+        holder.deleteButton?.setOnClickListener {
             userList.removeAt(position)
             notifyItemRemoved(position)
-            notifyItemRangeChanged(position, userList.size)
-            holder.itemView.setVisibility(View.GONE)
+            notifyItemRangeChanged(position, userList.size - position)
         }
 
         // edits item
-       holder?.editButton?.setOnClickListener {
+       holder.editButton?.setOnClickListener {
             val builder = AlertDialog.Builder(it.context)
             val inflater = LayoutInflater.from(parentholder?.context)
             builder.setTitle("Edit Item")
@@ -56,7 +55,6 @@ class MainAdapter(val userList: ArrayList<String>) : RecyclerView.Adapter<MainAd
             builder.setPositiveButton("OK") { dialog, i ->
                 userList.removeAt(position)
                 userList.add(position, editText.text.toString())
-                notifyDataSetChanged()
                 notifyItemChanged(position)
             }
             builder.show()
