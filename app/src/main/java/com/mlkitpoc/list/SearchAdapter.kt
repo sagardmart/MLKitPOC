@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mlkitpoc.R
 import com.mlkitpoc.list.model.Product
-import com.mlkitpoc.main.MainAdapter
+
 
 
 class SearchAdapter(private var productList: List<Product>) :
