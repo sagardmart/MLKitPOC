@@ -45,8 +45,8 @@ class SearchAdapter(private var productList: List<Product>) :
         val imageUrl = "https://cdn.dmart.in/images/products/${imageKey}_${imgBinary}_${imgExtension}${productImgExtension}"
         Glide.with(holder.itemView).load(imageUrl).into(holder.productImage)
         holder.productName.text=product.name
-        holder.productPrice.text=defaultVariant.variantTextValue
-        holder.productSKU.text=defaultVariant.priceSALE.toString()
+        holder.productPrice.text="Rs. ${defaultVariant.priceSALE.toString()}"
+        holder.productSKU.text=defaultVariant.variantTextValue
 
     }
 
