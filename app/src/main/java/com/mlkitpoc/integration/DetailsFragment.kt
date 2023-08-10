@@ -27,6 +27,7 @@ class DetailsFragment : Fragment() {
     private var binding: FragmentDetailsBinding? = null
     private var itemAdapter:SearchAdapter? =null
     private var productList = mutableListOf<Product>()
+   // var newItem = arguments?.getString("item")
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,9 +46,6 @@ class DetailsFragment : Fragment() {
         recyclerView.adapter = itemAdapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         viewModel.text.observe(viewLifecycleOwner) { searchTerm ->
-            // binding?.contentLabel?.text = it
-
-
             fetchProducts(searchTerm)
 
         }
@@ -61,7 +59,7 @@ class DetailsFragment : Fragment() {
                     Log.d("TAG", "onResponse: ${response.body()?.totalRecords}")
                     var newProductList: List<Product>? = response.body()?.products
                     if (newProductList != null) {
-productList.clear()
+                        productList.clear()
                         productList.addAll(newProductList)
                         itemAdapter?.notifyDataSetChanged()
                     }

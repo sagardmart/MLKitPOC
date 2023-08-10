@@ -4,6 +4,7 @@ package com.mlkitpoc.list
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ class SearchAdapter(private var productList: List<Product>) :
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productName: TextView = itemView.findViewById(R.id.itemname)
+       // val addButton:Button=itemView.findViewById(R.id.addButton)
         val productPrice: TextView = itemView.findViewById(R.id.mrp)
         val productSKU: TextView = itemView.findViewById(R.id.sku)
         val productImage: ImageView = itemView.findViewById(R.id.imageviewurl)
@@ -33,6 +35,7 @@ class SearchAdapter(private var productList: List<Product>) :
 
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+
         val product = productList[position]
         val defaultVariant=product.sKUs[0]
         val imageKey = defaultVariant.productImageKey

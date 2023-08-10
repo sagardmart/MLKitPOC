@@ -18,7 +18,9 @@ class ListActivity : AppCompatActivity() {
         val itemList = intent.getStringArrayListExtra("itemList") ?: emptyList()
 
         recyclerView = findViewById(R.id.recyclerview)
-        itemAdapter = ListAdapter(itemList)
+        itemAdapter = ListAdapter(itemList, onItemClick = {
+
+        })
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@ListActivity)
