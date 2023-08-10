@@ -44,7 +44,6 @@ class DetailsFragment : Fragment() {
         itemAdapter = SearchAdapter(productList)
         recyclerView.adapter = itemAdapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        itemAdapter = SearchAdapter(productList)
         viewModel.text.observe(viewLifecycleOwner) { searchTerm ->
             // binding?.contentLabel?.text = it
 
