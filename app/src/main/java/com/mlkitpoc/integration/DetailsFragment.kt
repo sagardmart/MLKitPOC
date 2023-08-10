@@ -26,7 +26,7 @@ class DetailsFragment : Fragment() {
     private val viewModel: ContentViewModel by activityViewModels()
     private var binding: FragmentDetailsBinding? = null
     private var itemAdapter:SearchAdapter? =null
-    private var productList: List<Product> = mutableListOf()
+    private var productList = mutableListOf<Product>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -62,8 +62,8 @@ class DetailsFragment : Fragment() {
                     Log.d("TAG", "onResponse: ${response.body()?.totalRecords}")
                     var newProductList: List<Product>? = response.body()?.products
                     if (newProductList != null) {
-
-                        productList = newProductList
+productList.clear()
+                        productList.addAll(newProductList)
                         itemAdapter?.notifyDataSetChanged()
                     }
                 }
