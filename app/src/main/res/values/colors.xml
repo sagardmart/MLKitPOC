@@ -5,4 +5,5 @@
     <color name="sky_blue">#87CEEB</color>
     <color name="steel_blue">#4682B4</color>
     <color name="azure_blue">#F0FFFF</color>
+    <color name="ready_red">#FF4500</color>
 </resources>

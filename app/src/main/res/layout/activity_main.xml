@@ -21,17 +21,39 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="77dp"
-            android:fontFamily="sans-serif-black"
-            android:text="\nCHECKLIST"
-            android:textAlignment="center"
-            android:textColor="@color/steel_blue"
-            android:textSize="25dip">
+            android:orientation="horizontal"
+            android:layout_height="75dp">
 
-        </TextView>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-black"
+                android:text="\nready"
+                android:textStyle="italic"
+                android:textColor="@color/ready_red"
+                android:textSize="25dip">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-black"
+                android:text="\nLIST"
+                android:textStyle="normal"
+                android:textColor="@color/steel_blue"
+                android:textSize="25dip">
+
+            </TextView>
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,7 +92,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_main_list"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="75dp"
@@ -91,30 +114,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <Button
+
+        <ImageButton
             android:id="@+id/clear_button"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/steel_blue"
-            android:text="CLEAR LIST"
+            android:layout_weight="0.2"
+            android:cropToPadding="true"
+            android:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:srcCompat="@drawable/red_delete" />
+
+
 
         <Button
             android:id="@+id/done_button"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.8"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:backgroundTint="@color/steel_blue"
-            android:text="DONE"
+            android:text="START BUYING"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
