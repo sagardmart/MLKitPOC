@@ -24,6 +24,7 @@
 
         <Button
             android:id="@+id/galleryButton"
+            android:backgroundTint="@color/sky_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -31,6 +32,7 @@
 
         <Button
             android:id="@+id/cameraButton"
+            android:backgroundTint="@color/sky_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -46,6 +48,7 @@
 
             <Button
                 android:id="@+id/textScan"
+                android:backgroundTint="@color/sky_blue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -54,6 +57,7 @@
 
             <Button
                 android:id="@+id/imgLabelScan"
+                android:backgroundTint="@color/sky_blue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
