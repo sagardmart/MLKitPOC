@@ -7,9 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.mlkitpoc.R
 import com.mlkitpoc.databinding.FragmentDetailsBinding
 import com.mlkitpoc.integration.retrofit.ApiService
 import com.mlkitpoc.integration.viewmodel.ContentViewModel
+import com.mlkitpoc.list.ListAdapter
+import com.mlkitpoc.list.SearchAdapter
 import com.mlkitpoc.list.model.Product
 import com.mlkitpoc.list.model.Record
 import retrofit2.Call
@@ -20,18 +25,32 @@ class DetailsFragment : Fragment() {
 
     private val viewModel: ContentViewModel by activityViewModels()
     private var binding: FragmentDetailsBinding? = null
+    private var itemAdapter:SearchAdapter? =null
+    private var productList: List<Product> = mutableListOf()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.text.observe(viewLifecycleOwner) {
-            binding?.contentLabel?.text = it
 
-            fetchProducts(it)
+        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerviewsearch)
+
+
+        itemAdapter = SearchAdapter(productList)
+        recyclerView.adapter = itemAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        itemAdapter = SearchAdapter(productList)
+        viewModel.text.observe(viewLifecycleOwner) { searchTerm ->
+            // binding?.contentLabel?.text = it
+
+
+            fetchProducts(searchTerm)
+
         }
     }
 
@@ -41,6 +60,12 @@ class DetailsFragment : Fragment() {
             override fun onResponse(call: Call<Record?>, response: Response<Record?>) {
                 if (response.isSuccessful) {
                     Log.d("TAG", "onResponse: ${response.body()?.totalRecords}")
+                    var newProductList: List<Product>? = response.body()?.products
+                    if (newProductList != null) {
+
+                        productList = newProductList
+                        itemAdapter?.notifyDataSetChanged()
+                    }
                 }
             }
 
