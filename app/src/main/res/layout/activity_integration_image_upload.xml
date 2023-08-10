@@ -18,6 +18,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/ic_gallery" />
 
+
     <LinearLayout
         android:id="@+id/btnLayout"
         android:layout_width="match_parent"
