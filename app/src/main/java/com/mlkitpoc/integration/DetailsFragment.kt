@@ -46,6 +46,7 @@ class DetailsFragment : Fragment() {
         recyclerView.adapter = itemAdapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         viewModel.text.observe(viewLifecycleOwner) { searchTerm ->
+            binding?.mainLabel?.text = searchTerm
             fetchProducts(searchTerm)
 
         }
